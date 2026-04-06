@@ -36,12 +36,12 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker build -f app/memos/web/Dockerfile.frontend -t $ECR_REGISTRY/ecsagain:frontend app/memos/web
+          docker build -f  Docker/Dockerfile.frontend -t $ECR_REGISTRY/ecsagain:frontend .
           docker push $ECR_REGISTRY/ecsagain:frontend
 
       - name: Build and push backend image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker build -f app/memos/Dockerfile.backend -t $ECR_REGISTRY/ecsagain:backend app/memos
+          docker build -f Docker/Dockerfile.backend -t $ECR_REGISTRY/ecsagain:backend .
           docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:backend
