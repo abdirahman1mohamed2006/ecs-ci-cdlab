@@ -1,0 +1,13 @@
+# Terraform
+**/.terraform/*
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Binaries
+*.exe
+
+# Env
+.env
+.env.
