@@ -44,20 +44,13 @@ variable "memory" {
   default = "512"
 }
 
-variable "frontend_image" {
+
+
+variable "image" {
   type = string
 }
 
-variable "backend_image" {
-  type = string
-}
-
-variable "frontend_port" {
-  type    = number
-  default = 80
-}
-
-variable "backend_port" {
+variable "port" {
   type    = number
   default = 8080
 }
@@ -74,11 +67,9 @@ variable "task_role_arn" {
   type = string
 }
 
-variable "frontend_log_group" {
-  type = string
-}
 
-variable "backend_log_group" {
+
+variable "log_group" {
   type = string
 }
 

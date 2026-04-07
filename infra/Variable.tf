@@ -66,36 +66,27 @@ variable "family" {
  }
 
 
-variable "frontend_port" {
+variable "port" {
   description = "Frontend container port"
   type        = number
   default     = 80
 }
 
-variable "backend_port" {
-  description = "Backend container port"
-  type        = number
-  default     = 8081
-}
 
-variable "frontend_log_group" {
+
+variable "log_group" {
   type    = string
   default = "/ecs/memo-frontend"
 }
 
-variable "backend_log_group" {
-  type    = string
-  default = "/ecs/memo-backend"
-}
+
 # in the .tfvars
 
-variable "frontend_image" {
+variable "image" {
   type = string
 }
 
-variable "backend_image" {
-  type = string
-}
+
 
 variable "execution_role_arn" {
   type = string

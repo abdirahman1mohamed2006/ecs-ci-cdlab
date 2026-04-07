@@ -69,11 +69,19 @@ resource "aws_ecs_task_definition" "task" {
   execution_role_arn       = var.execution_role_arn
   task_role_arn            = var.task_role_arn
 
+  
   container_definitions = jsonencode([
     {
-      name      = "backend"
-      image     = var.backend_image
+      name      = "memos"
+      image     = var.image
       essential = true
+
+      portMappings = [
+        {
+          containerPort = var.port
+          protocol      = "tcp"
+        }
+      ]
 
       environment = [
         {
@@ -81,50 +89,15 @@ resource "aws_ecs_task_definition" "task" {
           value = "prod"
         },
         {
-          name  = "MEMOS_DRIVER"
-          value = "postgres"
-        }
-      ]
-
-      portMappings = [
-        {
-          containerPort = var.backend_port
-          protocol      = "tcp"
+          name  = "MEMOS_PORT"
+          value = tostring(var.port)
         }
       ]
 
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = var.backend_log_group
-          awslogs-region        = var.aws_region
-          awslogs-stream-prefix = "ecs"
-        }
-      }
-    },
-    {
-      name      = "frontend"
-      image     = var.frontend_image
-      essential = true
-
-      dependsOn = [
-        {
-          containerName = "backend"
-          condition     = "START"
-        }
-      ]
-
-      portMappings = [
-        {
-          containerPort = var.frontend_port
-          protocol      = "tcp"
-        }
-      ]
-
-      logConfiguration = {
-        logDriver = "awslogs"
-        options = {
-          awslogs-group         = var.frontend_log_group
+          awslogs-group         = var.log_group
           awslogs-region        = var.aws_region
           awslogs-stream-prefix = "ecs"
         }
@@ -132,36 +105,3 @@ resource "aws_ecs_task_definition" "task" {
     }
   ])
 }
-
-# ECS service - This is in order to make sure the task stays running and it connectss to the target group . 
-
-resource "aws_ecs_service" "mongo" {
-  name            = var.app_name_service
-  cluster         = aws_ecs_cluster.ecs_cluster.id
-  task_definition = aws_ecs_task_definition.task.arn
-  desired_count   = 1
-  launch_type     = "FARGATE"
-
-  health_check_grace_period_seconds = 60
-
-  network_configuration {
-    subnets          = [var.private_subnet_1_id, var.private_subnet_2_id]
-    security_groups  = [aws_security_group.ecs_sg.id]
-    assign_public_ip = false
-  }
-
-  load_balancer {
-    target_group_arn = var.target_group_arn
-    container_name   = "frontend"
-    container_port   = 80
-  }
-
-  depends_on = [aws_iam_role_policy_attachment.ecs_attach]
-}
-
-
-
-
-
-
-

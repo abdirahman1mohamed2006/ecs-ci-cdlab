@@ -38,19 +38,18 @@ module "ECS" {
   cpu    = "256"
   memory = "512"
 
-  frontend_image = var.frontend_image
-  backend_image  = var.backend_image
+  image = var.image
+  
 
-  frontend_port = var.frontend_port
-  backend_port  = var.backend_port
+  port = var.port
+ 
 
   target_group_arn = module.ALB.target_group_arn
 
   execution_role_arn = var.execution_role_arn
   task_role_arn      = var.task_role_arn
 
-  frontend_log_group = var.frontend_log_group
-  backend_log_group  = var.backend_log_group
+  log_group = var.log_group
   aws_region         = var.aws_region
 }
 

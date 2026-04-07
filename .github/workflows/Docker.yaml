@@ -24,24 +24,20 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}  # get the secrets fromm aws . 
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
-
-      - name: Build and push frontend image
+      
+      - name: Build and push app image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        run: |
-          docker build -f  Docker/Dockerfile.frontend -t $ECR_REGISTRY/ecsagain:frontend .
-          docker push $ECR_REGISTRY/ecsagain:frontend
+         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+         ECR_REPOSITORY: ecsagain
+         run: 
+            docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+            docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest       
 
-      - name: Build and push backend image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        run: |
-          docker build -f Docker/Dockerfile.backend -t $ECR_REGISTRY/ecsagain:backend .
-          docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:backend
+
