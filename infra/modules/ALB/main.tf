@@ -11,7 +11,7 @@ resource "aws_vpc_security_group_ingress_rule" "alb_http" {
   to_port           = 443
   ip_protocol       = "tcp"
 }                                                                 
-resource "aws_vpc_security_group_ingress_rule" "alb_http" {      # Meanss anyone can access it from the internet 
+resource "aws_vpc_security_group_ingress_rule" "alb_httpinternet" {      # Meanss anyone can access it from the internet 
   security_group_id = aws_security_group.alb_sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
