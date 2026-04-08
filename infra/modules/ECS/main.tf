@@ -8,8 +8,8 @@ resource "aws_security_group" "ecs_sg" { # this security group directs traffic f
 resource "aws_vpc_security_group_ingress_rule" "ecs_from_alb" {
   security_group_id            = aws_security_group.ecs_sg.id
   referenced_security_group_id = var.alb_sg_id
-  from_port                    = 8080
-  to_port                      = 8080
+  from_port                    = var.port
+  to_port                      = var.port
   ip_protocol                  = "tcp"
 }
 
