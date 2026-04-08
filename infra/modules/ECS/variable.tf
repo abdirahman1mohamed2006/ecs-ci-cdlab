@@ -52,7 +52,7 @@ variable "image" {
 
 variable "port" {
   type    = number
-  default = 8080
+  default = 5230
 }
 
 variable "target_group_arn" {
