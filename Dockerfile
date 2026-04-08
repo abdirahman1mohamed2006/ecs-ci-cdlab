@@ -32,7 +32,7 @@ COPY app/memos/ ./
 # copy frontend build into backend
 COPY --from=frontend-build /app/memos/web/dist ./server/router/frontend/dist
 
-RUN go build -ldflags="-s -w" -o /out/memos ./cmd
+RUN go build -ldflags="-s -w" -o /out/memos ./cmd/memos
 
 
 
