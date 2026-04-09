@@ -59,10 +59,6 @@ resource "aws_lb_target_group" "test" { # target group
   }
 }
 
-# resource "aws_vpc" "main" {                       ###dont include this as this creates a new vpc
-# cidr_block = "10.0.0.0/16"
-#}
-
 resource "aws_lb_listener" "https" { # tells the load balancer what to do with the incoming traffic . 
   load_balancer_arn = aws_lb.test.arn
   port              = 443

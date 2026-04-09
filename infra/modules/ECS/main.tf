@@ -57,8 +57,8 @@ resource "aws_ecs_service" "memos_service" {
 
 # cloudwatch - so my container logs go somehwere 
 
-resource "aws_cloudwatch_log_group" "ecs" {
-  name              = var.app_name
+resource "aws_cloudwatch_log_group" "ecs_logs" {
+  name              = var.log_group
   retention_in_days = 7
 }
 
@@ -91,6 +91,7 @@ resource "aws_iam_role_policy_attachment" "ecs_attach" {
 # Task definition - so ECS Knows which docker image to run , what port to use and how much cpu and memory for it to be given . 
 
 resource "aws_ecs_task_definition" "task" {
+  depends_on = [aws_cloudwatch_log_group.ecs_logs]
   family                   = var.family
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
