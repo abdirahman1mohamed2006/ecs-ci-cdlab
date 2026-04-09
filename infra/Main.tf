@@ -29,6 +29,9 @@ module "ECS" {
   alb_sg_id           = module.ALB.alb_sg_id
   private_subnet_1_id = module.VPC.private_subnet_1_id
   private_subnet_2_id = module.VPC.private_subnet_2_id
+  public_subnet_1_id  = module.VPC.public_subnet_1_id
+  public_subnet_2_id  = module.VPC.public_subnet_2_id
+
 
   cluster          = "memo_cluster"
   app_name         = var.app_name
