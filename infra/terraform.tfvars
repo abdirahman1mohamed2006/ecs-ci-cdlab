@@ -1,4 +1,4 @@
-image = "292681319569.dkr.ecr.eu-west-1.amazonaws.com/memo-frontend:latest"
+image = "292681319569.dkr.ecr.eu-west-1.amazonaws.com/ecsmainrepo:latest"
 
 
 
