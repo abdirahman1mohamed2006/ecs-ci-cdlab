@@ -25,6 +25,36 @@ resource "aws_ecs_cluster" "ecs_cluster" {
   name = var.cluster
 }
 
+
+
+# ECS - Service
+resource "aws_ecs_service" "memos_service" {
+  name            = "memos-service"
+  cluster         = aws_ecs_cluster.ecs_cluster.id
+  task_definition = aws_ecs_task_definition.task.arn
+  desired_count   = 1
+  launch_type     = "FARGATE"
+
+  network_configuration {
+  subnets = [
+    var.public_subnet_1_id,
+    var.public_subnet_2_id
+  ]
+  security_groups  = [aws_security_group.ecs_sg.id]
+  assign_public_ip = true
+  }
+
+  load_balancer {
+    target_group_arn = var.target_group_arn
+    container_name   = "memos"
+    container_port   = var.port
+  }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.ecs_attach
+  ]
+}
+
 # cloudwatch - so my container logs go somehwere 
 
 resource "aws_cloudwatch_log_group" "ecs" {
