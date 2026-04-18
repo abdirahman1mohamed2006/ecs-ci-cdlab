@@ -5,6 +5,7 @@
 I created a  end-to-end AWS ECS deployment of a  memo application, built using a multi-build container , Terraform, and GitHub Actions to automate infrastructure and application delivery.
 
 #### Live demo:
+ Video not working sorry :(
 <img width="1261" height="727" alt="image" src="https://github.com/user-attachments/assets/07e9486e-887a-42d9-8b1c-43db43e07651" />
 
 ## Key Features : 
@@ -28,7 +29,33 @@ I created a  end-to-end AWS ECS deployment of a  memo application, built using a
 - **Security:** Workloads isolated in private subnets with controlled access via security groups  
 - **DNS & TLS:** Route 53 for domain routing with SSL certificates managed by AWS Certificate Manager (ACM)  
 - **Container Registry:** Amazon ECR for storing and managing Docker images  
-- **State Management:** Terraform state stored in S3 with versioning, using DynamoDB for state locking  
+- **State Management:** Terraform state stored in S3 with versioning, using DynamoDB for state locking
+
+## Repo Structure :
+
+
+└── ./
+    ├── .github
+    │   └── workflows
+    │       ├── apply.yml
+    │       ├── destroy.yml
+    │       ├── plan.yml
+    │       └── push.yml
+    ├── app
+    │   └── Dockerfile
+    ├── Terraform
+    │   ├── modules
+    │   │   ├── acm/
+    │   │   ├── alb/
+    │   │   ├── ecs/
+    │   │   ├── route53/
+    │   │   ├── security-grps/
+    │   │   └── vpc/
+    │   ├── main.tf
+    │   ├── provider.tf
+    │   └── variables.tf
+    └── README.md
+
 
 
 
