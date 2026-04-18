@@ -15,7 +15,20 @@ I created a  end-to-end AWS ECS deployment of a  memo application, built using a
 - **ECS Fargate deployment** in private subnets  
 - **High availability** across multiple availability zones  
 
+## Architecture:
 
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/7e25cb43-3803-4f98-9987-c292a7bcb06f" />
+
+### Infrastructure
+
+- **Compute:** AWS ECS Fargate for running containerised applications without managing servers  
+- **Networking:** Custom VPC with public and private subnets deployed across multiple availability zones  
+- **Outbound Access:** NAT Gateway in public subnets enabling secure internet access from private workloads  
+- **Load Balancing:** Application Load Balancer (ALB) handling HTTPS traffic and routing to ECS services  
+- **Security:** Workloads isolated in private subnets with controlled access via security groups  
+- **DNS & TLS:** Route 53 for domain routing with SSL certificates managed by AWS Certificate Manager (ACM)  
+- **Container Registry:** Amazon ECR for storing and managing Docker images  
+- **State Management:** Terraform state stored in S3 with versioning, using DynamoDB for state locking  
 
 
 
