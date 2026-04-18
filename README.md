@@ -31,10 +31,22 @@ I created a  end-to-end AWS ECS deployment of a  memo application, built using a
 - **Container Registry:** Amazon ECR for storing and managing Docker images  
 - **State Management:** Terraform state stored in S3 with versioning, using DynamoDB for state locking
 
-## Repo Structure :
+## Repository Structure
 
 
-./ | .github | workflows | apply.yml | destroy.yml | plan.yml | push.yml | app | Dockerfile | terraform | modules | acm/ | alb/ | ecs/ | route53/ | security-grps/ | vpc/ | main.tf | provider.tf | variables.tf | README.md
+ECS-PROJECT
+|-- docker/ # Dockerfile
+|-- terraform-bootstrap/ # S3 state bucket + DynamoDB lock table
+|-- terraform/ # Infrastructure (modular)
+| |-- modules/ # vpc, alb, ecs, ecr, etc.
+|
+|-- .github/workflows/ # CI/CD pipelines
+| |-- deploy.yaml # Build & push Docker
+| |-- apply.yaml # Provision infrastructure
+| |-- health-check.yaml # Post-deployment validation
+| |-- destroy.yaml # Teardown
+|
+|-- README.md
 
 
 
