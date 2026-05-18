@@ -2,13 +2,13 @@
 
 ## Overview
 
-I created a  end-to-end AWS ECS deployment of a  memo application, built using a multi-build container , Terraform, and GitHub Actions to automate infrastructure and application delivery.
+I created an end-to-end AWS ECS deployment of a memo application, built using a multi-stage Docker container, Terraform, and GitHub Actions to automate infrastructure and application delivery.
 
 #### Live demo:
  Video not working sorry :(
 <img width="1261" height="727" alt="image" src="https://github.com/user-attachments/assets/07e9486e-887a-42d9-8b1c-43db43e07651" />
 
-## Key Features : 
+## Key Features
 
 - **Infrastructure as Code** using Terraform  
 - **Multi-stage Docker builds** for efficient images  
@@ -16,7 +16,7 @@ I created a  end-to-end AWS ECS deployment of a  memo application, built using a
 - **ECS Fargate deployment** in private subnets  
 - **High availability** across multiple availability zones  
 
-## Architecture:
+## Architecture
 
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/7e25cb43-3803-4f98-9987-c292a7bcb06f" />
 
@@ -33,9 +33,80 @@ I created a  end-to-end AWS ECS deployment of a  memo application, built using a
 
 ## Repository Structure
 
-<img width="567" height="543" alt="image" src="https://github.com/user-attachments/assets/999a91ce-7e03-4808-a47d-47e3319275b1" />
+```
+ECSagain/
+├── app/                        # Application code
+│   └── memos/                  # Go backend + React frontend
+├── infra/                      # Terraform infrastructure as code
+│   ├── Main.tf
+│   ├── Provider.tf
+│   ├── Variable.tf
+│   ├── terraform.tfvars
+│   └── modules/               # Modular infrastructure components
+│       ├── VPC/
+│       ├── ALB/
+│       ├── ECS/
+│       ├── ECR/
+│       ├── Route53/
+│       └── ACM/
+├── Dockerfile                 # Container build configuration
+├── terraform.tfstate          # Terraform state
+└── README.md                  # Documentation
+```
 
-##  Build & Deployment Workflow
+## Getting Started
+
+### Quick Start
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd ECSagain
+   ```
+
+2. **Build the container:**
+   ```bash
+   docker build -f app/memos/Dockerfile -t memos:latest .
+   ```
+
+3. **Deploy with Terraform:**
+   ```bash
+   cd infra
+   terraform init
+   terraform plan
+   terraform apply
+   ```
+
+### Local Development
+
+#### Build and Run Locally
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -f app/memos/Dockerfile -t memos:local .
+   ```
+
+2. **Run the container locally:**
+   ```bash
+   docker run -p 5320:5320 memos:local
+   ```
+
+3. **Check application health:**
+   ```bash
+   curl http://localhost:5320/health
+   ```
+
+   Or with verbose output:
+   ```bash
+   curl -v http://localhost:5320/health
+   ```
+
+4. **View application logs:**
+   ```bash
+   docker logs <container-id>
+   ```
+
+## Build & Deployment Workflow
 
 ### Prerequisites
 

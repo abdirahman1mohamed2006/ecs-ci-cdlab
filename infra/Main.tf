@@ -42,10 +42,7 @@ module "ECS" {
   memory = "512"
 
   image = var.image
-  
-
   port = var.port
- 
 
   target_group_arn = module.ALB.target_group_arn
 
