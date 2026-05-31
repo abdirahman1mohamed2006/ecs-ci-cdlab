@@ -48,7 +48,7 @@ ECSagain/
 │       ├── ECS/
 │       ├── ECR/
 │       ├── Route53/
-│       └── ACM/
+│       └── IAM/
 ├── Dockerfile                 # Container build configuration
 ├── terraform.tfstate          # Terraform state
 └── README.md                  # Documentation
@@ -140,7 +140,7 @@ ECSagain/
 
 - Removed manually created resources after validation  
 - Recreated the full infrastructure using modular Terraform components  
-  *(VPC, ALB, ECS, Route 53, ACM, ECR)*  
+  *(VPC, ALB, ECS, Route 53, ECR)*  
 - Introduced a **NAT Gateway** to allow secure outbound access from private subnets  
 - Configured remote state storage in S3 via a bootstrap process  
 - Enabled DynamoDB state locking to prevent concurrent Terraform runs  
