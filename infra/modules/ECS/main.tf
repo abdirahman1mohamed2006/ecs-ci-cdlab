@@ -1,4 +1,3 @@
-
 resource "aws_security_group" "ecs_sg" { 
   name        = "ecs-sg"
   description = "Allow HTTP inbound traffic from tg to container"
@@ -64,29 +63,6 @@ resource "aws_cloudwatch_log_group" "ecs_logs" {
 
 
 
-resource "aws_iam_role" "ecs_role" {
-  name = "ecs-execution-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "ecs-tasks.amazonaws.com"
-        }
-      }
-    ]
-  })
-}
-
-
-resource "aws_iam_role_policy_attachment" "ecs_attach" {
-  role       = aws_iam_role.ecs_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
 
 
 
@@ -97,8 +73,8 @@ resource "aws_ecs_task_definition" "task" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.cpu
   memory                   = var.memory
-  execution_role_arn       = aws_iam_role.ecs_role.arn
-  task_role_arn            = aws_iam_role.ecs_role.arn
+  execution_role_arn       = var.execution_role_arn
+  task_role_arn            = var.task_role_arn
 
   
   container_definitions = jsonencode([

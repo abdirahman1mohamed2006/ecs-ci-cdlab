@@ -46,8 +46,9 @@ module "ECS" {
 
   target_group_arn = module.ALB.target_group_arn
 
-  execution_role_arn = var.execution_role_arn
-  task_role_arn      = var.task_role_arn
+  execution_role_arn = module.IAM.ecs_execution_role_arn
+ 
+  task_role_arn = module.IAM.ecs_task_role_arn
 
   log_group = var.log_group
   aws_region         = var.aws_region

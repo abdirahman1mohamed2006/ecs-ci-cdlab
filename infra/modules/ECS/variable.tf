@@ -86,3 +86,9 @@ variable "aws_region" {
   default = "eu-west-1"
 }
 
+variable "" {
+  type = string
+  default = "abdirahman1mohamed2006/MemoApplication-ECS"
+  
+}
+
