@@ -162,7 +162,7 @@ ECSagain/
 
 ### Workflows
 
-- `apply.yaml` *(manual)* — Terraform init → validate → plan → apply  
+- `apply.yaml` *(manual)* — Terraform init  → apply  
 - `deploy.yaml` *(automated)* — Builds, pushes, and deploys the application  
 - `plan.yaml` — Generates Terraform execution plan  
 - `destroy.yaml` *(manual)* — Tears down all infrastructure  
